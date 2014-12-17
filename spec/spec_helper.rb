@@ -1,3 +1,4 @@
+require 'bundler/setup'
 require 'xcode_manager'
 
 def fixture_file_path(path)
