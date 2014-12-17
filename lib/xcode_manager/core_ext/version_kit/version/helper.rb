@@ -24,4 +24,14 @@ VersionKit::Version::Helper.module_eval do
     end
     next_pre_releases
   end
+  
+  def self.next_versions(version)
+    version = coherce_version(version)
+    [
+      next_major(version),
+      next_minor(version),
+      next_patch(version),
+      next_pre_releases(version)
+    ].flatten.compact
+  end
 end

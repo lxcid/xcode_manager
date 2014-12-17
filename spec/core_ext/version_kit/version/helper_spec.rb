@@ -42,4 +42,11 @@ RSpec.describe VersionKit::Version::Helper do
       expect(VersionKit::Version::Helper.next_pre_releases('1.2.3-alpha.1.beta.2.rc.3')).to match_array(['1.2.3-alpha.1.beta.2.rc.4', '1.2.3-alpha.1.beta.3', '1.2.3-alpha.2'])
     end
   end
+  
+  context 'next_versions' do
+    it 'returns the list of next available versions' do
+      expect(VersionKit::Version::Helper.next_versions('1.2.3')).to match_array(['2.0.0', '1.3.0', '1.2.4'])
+      expect(VersionKit::Version::Helper.next_versions('1.2.3-alpha.4.5')).to match_array(['2.0.0', '1.3.0', '1.2.4', '1.2.3-alpha.5', '1.2.3-alpha.4.6'])
+    end
+  end
 end
