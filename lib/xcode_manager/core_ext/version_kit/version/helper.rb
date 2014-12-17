@@ -11,4 +11,17 @@ VersionKit::Version::Helper.module_eval do
     end
     VersionKit::Version.new([version.number_component, pre_release_component])
   end
+  
+  def self.next_pre_releases(version)
+    version = coherce_version(version)
+    return nil unless (version.pre_release_component && !version.pre_release_component.empty?)
+    pre_release_component = version.pre_release_component.dup
+    next_pre_releases = []
+    until pre_release_component.empty? do
+      next_pre_release = next_pre_release(VersionKit::Version.new([version.number_component, pre_release_component]))
+      next_pre_releases << next_pre_release if (next_pre_releases.empty? || next_pre_releases.last < next_pre_release)
+      pre_release_component.pop
+    end
+    next_pre_releases
+  end
 end
