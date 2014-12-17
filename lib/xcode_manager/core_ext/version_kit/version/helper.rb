@@ -27,11 +27,13 @@ VersionKit::Version::Helper.module_eval do
   
   def self.next_versions(version)
     version = coherce_version(version)
-    [
+    next_versions = [
       next_major(version),
       next_minor(version),
       next_patch(version),
-      next_pre_releases(version)
-    ].flatten.compact
+    ]
+    next_pre_releases = next_pre_releases(version)
+    next_versions.concat(next_pre_releases.reverse) if (next_pre_releases && !next_pre_releases.empty?)
+    next_versions
   end
 end
